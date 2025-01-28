@@ -5,7 +5,7 @@ import { NextResponse, NextRequest } from "next/server";
 import Stripe from "stripe";
 import { revalidatePath } from "next/cache";
 
-export const config = { runtime: "nodejs" };
+export const runtime = "nodejs";
 
 export async function POST(request: NextRequest) {
   const body = await request.text();
