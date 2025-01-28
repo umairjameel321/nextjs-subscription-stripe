@@ -4,10 +4,12 @@ import { headers } from "next/headers";
 import { NextResponse, NextRequest } from "next/server";
 import Stripe from "stripe";
 import { revalidatePath } from "next/cache";
+import { connect } from "@/db";
 
 export const runtime = "nodejs";
 
 export async function POST(request: NextRequest) {
+  await connect();
   const body = await request.text();
   const signature = headers().get("Stripe-Signature") as string;
   let event: Stripe.Event;
