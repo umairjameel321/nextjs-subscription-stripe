@@ -63,6 +63,30 @@ export async function POST(request: NextRequest) {
         console.log("User updated successfully");
       }
     }
+  } else if (eventType === "customer.subscription.deleted") {
+    const subscription = event.data.object;
+    const customerId = subscription.customer;
+    const priceId = subscription.items.data[0].price.id;
+
+    if (priceId !== process.env.NEXT_PUBLIC_STRIPE_MOHTHLY_PRICE_ID) {
+      return new NextResponse("Price ID does not match", {
+        status: 400,
+      });
+    }
+
+    const updatedUser = await User.findOneAndUpdate(
+      { customerId },
+      {
+        isSubscribed: false,
+      },
+      { new: true }
+    );
+
+    if (!updatedUser) {
+      console.error("No user found", customerId);
+    } else {
+      console.log("user updated successfully");
+    }
   }
 
   revalidatePath("/", "layout");
