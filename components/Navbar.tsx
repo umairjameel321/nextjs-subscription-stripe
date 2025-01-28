@@ -14,8 +14,8 @@ const Navbar = () => {
           </Link>
         </div>
         <div className="flex items-center">
-          <Link href="/client">
-            <li>Client Page</li>
+          <Link href="/billing">
+            <li>Billing</li>
           </Link>
         </div>
         <div className="flex gap-6 items-center">

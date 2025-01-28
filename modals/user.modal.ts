@@ -24,6 +24,14 @@ const UserSchema = new Schema({
   lastName: {
     type: String,
   },
+  isSubscribed: {
+    type: Boolean,
+    default: false,
+  },
+  customerId: {
+    type: String,
+    default: "",
+  },
 });
 
 const User = models?.User || model("User", UserSchema);
